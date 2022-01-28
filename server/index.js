@@ -2,7 +2,7 @@ const express = require('express')
 // express 모듈을 가져옴
 const app = express()
 // express 앱 생성
-const port = 3000
+const port = 5000
 // back server port 설정
 
 const bodyParser = require('body-parser')
@@ -23,6 +23,10 @@ const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI)
 .then(()=>console.log('MongoDB Connected...'))
 .catch(err=> console.log(err))
+
+app.get('/api/hello', (req, res)=>{
+  res.send("안녕하세요 from api/hello");
+})
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
