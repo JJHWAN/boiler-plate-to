@@ -15,22 +15,25 @@ import {
   } from "react-router-dom";
   
   import LandingPage from './components/views/LandingPage/LandingPage'
-  
   import LoginPage from './components/views/LoginPage/LoginPage'
-  
   import RegisterPage from './components/views/RegisterPage/RegisterPage'
-  
+  import Auth from './hoc/auth'
   
   
   
   function App() {
+
+    const NewLandingPage = Auth(LandingPage,null);
+    const NewLoginPage = Auth(LoginPage,false);
+    const NewRegisterPage = Auth(RegisterPage,false);
   
   return (
-  <BrowserRouter>
+  <BrowserRouter> 
 
     <div>
         <ul>
           <li>
+
             <Link to="/">LandingPage</Link>
           </li>
           <li>
@@ -43,11 +46,9 @@ import {
         <hr />
       <Routes>
         
-        <Route exact path="/" element = {<LandingPage/>}/>
-        
-        <Route exact path="/login" element = {<LoginPage/>}/>
-        
-        <Route exact path="/register" element = {<RegisterPage/>}/>
+      <Route exact path="/" element = {<NewLandingPage/>} />
+      <Route exact path="/login" element = {<NewLoginPage/>} />
+      <Route exact path="/register" element = {<NewRegisterPage/>} />
       
       </Routes>
     </div>
