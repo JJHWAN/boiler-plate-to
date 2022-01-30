@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.post('/register', (req, res) =>{
+app.post('/api/users/register', (req, res) =>{
   // 회원가입 시 필요한 정보들을 client에서 가져오면
   // 그 정보들을 데이터 베이스에 저장해준다.
   
@@ -42,20 +42,21 @@ app.post('/register', (req, res) =>{
 
   // save 하기전에 비밀번호 암호화 필요
   user.save((err, doc)=>{
-    if(err) return res.json({sucess : false, err})
+    if(err) return res.json({success : false, err})
     return res.status(200).json({
-      sucess:true
+      success:true
     })
   })
 })
 
 app.post('/api/users/login', (req, res) => {
+  console.log("in server/index.js api login", req)
   // 1. 요청된 이메일을 DB에서 검색
   User.findOne({email : req.body.email}, (err, user)=>{
     if(!user){
       // DB내부에 없는 경우
       return res.json({
-        loginSucess : false,
+        loginSuccess : false,
         message : "해당 이메일의 대응하는 유저가 없습니다."
       })
     }
@@ -63,7 +64,7 @@ app.post('/api/users/login', (req, res) => {
     user.comparePassword(req.body.password, (err, isMatch) =>{
       if(!isMatch){
         return res.json({
-          loginSucess : false,
+          loginSuccess : false,
           message : "비밀번호가 틀렸습니다."
         })
       }
@@ -73,7 +74,7 @@ app.post('/api/users/login', (req, res) => {
         // token을 저장한다. 어디에? 쿠키, 로컬 스토리지 .. 여러가지 방법이 있음
         res.cookie("x_auth", user.token)
         .status(200)
-        .json({loginSucess : true, userID : user._id})
+        .json({loginSuccess : true, userID : user._id})
       })
     })
   })
@@ -100,9 +101,9 @@ app.get('/api/users/logout', auth, (req, res)=>{
   User.findOneAndUpdate({_id : req.user._id}, 
     {token : ""},
     (err, user) =>{
-      if(err) return res.json({sucess : false, err});
+      if(err) return res.json({success : false, err});
       return res.status(200).send({
-        sucess: true
+        success: true
       })
     })
 })

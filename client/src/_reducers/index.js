@@ -4,10 +4,10 @@
 // 위의 주석처럼 나눠진 Reducer들을 combineReducer를 이용해서
 // rootRedcuer에서 하나로 합쳐준다.
 import { combineReducers } from "redux";
-//import user from './user_reducer';
+import user from './user_reducers';
 
 const rootReducer = combineReducers({
-    //user
+    user
 })
 
 export default rootReducer;

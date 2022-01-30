@@ -34,10 +34,10 @@ import {
             <Link to="/">LandingPage</Link>
           </li>
           <li>
-            <Link to="/about">LoginPage</Link>
+            <Link to="/login">LoginPage</Link>
           </li>
           <li>
-            <Link to="/dashboard">RegisterPage</Link>
+            <Link to="/register">RegisterPage</Link>
           </li>
         </ul>
         <hr />
